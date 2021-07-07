@@ -1,25 +1,57 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch
+} from 'react-router-dom';
 
-function App() {
+import { AuthProvider } from './contexts/AuthProvider';
+import { PrivateRoute } from './routes/PrivateRoute';
+
+import Login from './pages/Login';
+import { Portais } from './pages/Portais';
+import { Ferramentas } from './pages/Ferramentas';
+import { Profile } from './pages/Profile';
+import SideMenu from './components/SideMenu';
+import { Decretos } from './pages/Decretos';
+import { Client } from './pages/Client';
+import { ClientEditor } from './components/ClientEditor';
+import { ClientProvider } from './contexts/ClientContex';
+
+const App: React.FC = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <ClientProvider>
+        <Router>
+          <SideMenu />
+          <Switch>
+            <Route path="/login" >
+              <Login />
+            </Route>
+            <PrivateRoute path="/clients/:clientId">
+              <Client />
+            </PrivateRoute>
+            <PrivateRoute path="/portais">
+              <Portais />
+            </PrivateRoute>
+            <PrivateRoute path="/ferramentas">
+              <Ferramentas />
+            </PrivateRoute>
+            <PrivateRoute path="/decretos">
+              <Decretos />
+            </PrivateRoute>
+            <PrivateRoute path="/profile">
+              <Profile />
+            </PrivateRoute>
+            <Route>
+              <Redirect to="/profile" />
+            </Route>
+          </Switch>
+          <ClientEditor />
+        </Router>
+      </ClientProvider>
+    </AuthProvider>
   );
 }
 
