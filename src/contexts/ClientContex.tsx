@@ -15,6 +15,7 @@ type Client = {
   phone: string;
   sessionOnline: boolean;
   sex: boolean;
+  closed: boolean;
 }
 
 export type ClientFirebaseData = {
@@ -53,7 +54,6 @@ export const ClientProvider: React.FC = ({children}) => {
   const [client, setClient] = useState({} as Client);
   const [inSession, setInSession] = useState(false);
   const {user} = useAuth();
-  const history = useHistory();
 
   useEffect(() => {
     database.ref(`users/${user?.id}`).on('value',async (changedData) => {
@@ -72,7 +72,8 @@ export const ClientProvider: React.FC = ({children}) => {
           address: data.address,
           phone: data.phone,
           sessionOnline: data.consult.online,
-          sex: data.sex
+          sex: data.sex,
+          closed: data.consult.closed
         });
       }
     });
@@ -80,7 +81,7 @@ export const ClientProvider: React.FC = ({children}) => {
     return () => {
       database.ref(`users/${user?.id}`).off();
     }
-  }, [client, user]);
+  }, [user]);
 
   return (
     <clientContext.Provider value={{

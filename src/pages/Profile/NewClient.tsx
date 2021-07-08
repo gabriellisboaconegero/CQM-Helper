@@ -1,22 +1,35 @@
 import React, { ChangeEvent, FormEvent } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "../../components/Button";
 import { PrivateComponent } from "../../components/PrivateComponent";
-import { ClientFirebaseData } from "../../contexts/ClientContex";
 import { useAuth } from "../../hooks/useAuth";
 import { useClient } from "../../hooks/useClient";
 import { database } from "../../services/firebase";
 
 type UpdatesType = Record<string, any>;
 
+type Client = {
+  firstName1: string;
+  lastName1: string;
+  firstName2?: string;
+  lastName2?: string;
+  birth: number;
+  address: string;
+  phone: string;
+  sessionOnline: boolean;
+  sex: boolean;
+}
+
 export const NewClient: React.FC = (props) => {
 
-  const {inSession,client, setClient} = useClient();
+  const [localClient, setLocalClient] = useState<Client>({} as Client);
+  const {inSession} = useClient();
   const history = useHistory();
   const {user} = useAuth();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>){
-    setClient(prev => {
+    setLocalClient(prev => {
       if (e.target.name === 'birth'){
         return {
           ...prev,
@@ -50,21 +63,21 @@ export const NewClient: React.FC = (props) => {
         timestamp: Date.now(),
         data: {
           name: {
-            first: client.firstName1,
-            last: client.lastName1,
+            first: localClient.firstName1,
+            last: localClient.lastName1,
             second: {
-              first: client.firstName2 ?? '',
-              last: client.lastName2 ?? ''
+              first: localClient.firstName2 ?? '',
+              last: localClient.lastName2 ?? ''
             },
           },
-          sex: client.sex,
+          sex: localClient.sex,
           consult: {
             closed: false,
-            online: Boolean(client.sessionOnline),
+            online: Boolean(localClient.sessionOnline),
           },
-          birth: client.birth,
-          phone: client.phone,
-          address: client.address
+          birth: localClient.birth,
+          phone: localClient.phone,
+          address: localClient.address
         }
       };;
       updates[`/users/${user?.id}/sessions/${newSessionKey}`] = Date.now();
@@ -73,11 +86,9 @@ export const NewClient: React.FC = (props) => {
       database.ref().update(updates);
       console.log(newSessionKey);
       history.push(`/profile/client/${newSessionKey}`);
-      return true;
     } catch (err){
       console.error(err);
       alert('Não foi possivel cadastrar');
-      return false;
     }
   }
 

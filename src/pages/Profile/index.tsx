@@ -5,8 +5,10 @@ import { Link, Route, Switch, useHistory, useRouteMatch } from "react-router-dom
 import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 import { database } from "../../services/firebase";
-import { convertDate } from "../../utils/dateConverter";
+import { convertDateAndTime } from "../../utils/dateConverter";
+import { FileSelector } from "./FileSelector";
 import { NewClient } from "./NewClient";
+import { UserClient } from "./UserClient";
 
 type Sessions = Record<string, number>;
 
@@ -30,8 +32,12 @@ export const Profile: React.FC = (props) => {
           <p><strong>Email:</strong> erikanlisboa@gmail.com</p>
         </div>
         <Switch>
-          <Route path={`${match.path}/selectfile`}></Route>
-          <Route path={`${match.path}/client/:clientId`}></Route>
+          <Route path={`${match.path}/selectfile`}>
+            <FileSelector />
+          </Route>
+          <Route path={`${match.path}/client/:clientId`}>
+            <UserClient />
+          </Route>
           <Route path={`${match.path}/newclient`}>
             <NewClient />
           </Route>
@@ -39,7 +45,7 @@ export const Profile: React.FC = (props) => {
             <ol>
               {Object.entries(userSessions).map(([key, value]) => {
                 return (
-                  <li key={key}><Link to={`${match.url}/selectfile?clientId=${key}`}>{convertDate(value)}</Link></li>
+                  <li key={key}><Link to={`${match.url}/selectfile?clientId=${key}`}>{convertDateAndTime(value)}</Link></li>
                 );
               })}
             </ol>

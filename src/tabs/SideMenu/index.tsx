@@ -1,6 +1,5 @@
 import React from "react";
 
-import { ClientsSvg } from "../../assets/ClientsSvg";
 import { DecretosSvg } from "../../assets/DecretosSvg";
 import { FerramentasSvg } from "../../assets/FerramentasSvg";
 import { MenuSvg } from "../../assets/MenuSvg";
@@ -9,7 +8,9 @@ import { ProfileSvg } from "../../assets/ProfileSvg";
 
 import { MenuLink } from "../../components/MenuLink";
 import { useAuth } from "../../hooks/useAuth";
-import { PrivateComponent } from "../PrivateComponent";
+import { PrivateComponent } from "../../components/PrivateComponent";
+import { AddSvg } from "../../assets/AddSvg";
+import { DownloadSvg } from "../../assets/dowloadSvg";
 
 const SideMenu: React.FC = (props) => {
 
@@ -30,6 +31,12 @@ const SideMenu: React.FC = (props) => {
         </MenuLink>
         <MenuLink to="/profile" >
           <ProfileSvg />
+        </MenuLink>
+        <MenuLink to='/profile/newclient'>
+          <AddSvg />
+        </MenuLink>
+        <MenuLink to="/profile/selectfile">
+          <DownloadSvg />
         </MenuLink>
       </menu>
     </PrivateComponent>

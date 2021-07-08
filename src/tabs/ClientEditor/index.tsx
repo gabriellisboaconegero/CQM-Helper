@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "../Button";
-import { ClientPath } from "../ClientPath";
-import { PrivateComponent } from "../PrivateComponent";
+import Button from "../../components/Button";
+import { ClientPath } from "../../components/ClientPath";
+import { PrivateComponent } from "../../components/PrivateComponent";
 
 export const ClientEditor: React.FC = (props) => {
   return (

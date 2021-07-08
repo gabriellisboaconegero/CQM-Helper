@@ -13,10 +13,10 @@ import Login from './pages/Login';
 import { Portais } from './pages/Portais';
 import { Ferramentas } from './pages/Ferramentas';
 import { Profile } from './pages/Profile';
-import SideMenu from './components/SideMenu';
+import SideMenu from './tabs/SideMenu';
 import { Decretos } from './pages/Decretos';
 import { Client } from './pages/Client';
-import { ClientEditor } from './components/ClientEditor';
+import { ClientEditor } from './tabs/ClientEditor';
 import { ClientProvider } from './contexts/ClientContex';
 
 const App: React.FC = (props) => {
