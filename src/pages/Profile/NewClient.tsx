@@ -84,7 +84,6 @@ export const NewClient: React.FC = (props) => {
       updates[`/users/${user?.id}/current`] = newSessionKey;
   
       database.ref().update(updates);
-      console.log(newSessionKey);
       history.push(`/profile/client/${newSessionKey}`);
     } catch (err){
       console.error(err);

@@ -19,12 +19,15 @@ export const UserClient: React.FC = (props) =>{
   const [edditing, setEdditing] = useState(false);
 
   useEffect(() => {
+    if (!client) return;
     database.ref(`/sessions/open/${params.clientId}/timestamp`).get().then(res => {
       setClientTimestamp(res.val() as number);
+    }).catch(err => {
+      console.error(err);
     });
   }, [params]);
   
-  return (
+  return client? (
     <div>
       <h1>{clientTimestamp > 0 && convertDateAndTime(clientTimestamp)}</h1>
       <div className="client-ficha">
@@ -61,5 +64,5 @@ export const UserClient: React.FC = (props) =>{
         </div>
       </div>
     </div>
-  );
+  ) : <></>;
 }

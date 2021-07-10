@@ -15,7 +15,7 @@ type Client = {
   sessionOnline: boolean;
   sex: boolean;
   closed: boolean;
-}
+} | undefined;
 
 export type ClientFirebaseData = {
   terapeutaId: string | undefined;
@@ -50,7 +50,7 @@ export const clientContext = createContext({} as ClientContextType)
 
 export const ClientProvider: React.FC = ({children}) => {
 
-  const [client, setClient] = useState({} as Client);
+  const [client, setClient] = useState<Client>(undefined);
   const [inSession, setInSession] = useState(false);
   const {user} = useAuth();
 
@@ -74,6 +74,8 @@ export const ClientProvider: React.FC = ({children}) => {
           sex: data.sex,
           closed: data.consult.closed
         });
+      }else{
+        setClient(undefined);
       }
     });
 

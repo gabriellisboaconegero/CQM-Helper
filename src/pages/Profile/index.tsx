@@ -14,17 +14,20 @@ import styles from "./styles.module.scss"
 import {BsFillPersonFill, BsEnvelopeFill} from "react-icons/bs";
 
 
-type Sessions = Record<string, number>;
+type Sessions = Record<string, number> | undefined;
 
 export const Profile: React.FC = (props) => {
   const match = useRouteMatch();
   const history = useHistory();
   const {user} = useAuth();
 
-  const [userSessions, setUserSessions] = useState<Sessions>({} as Sessions);
+  const [userSessions, setUserSessions] = useState<Sessions>();
 
   useEffect(() => {
-    database.ref(`users/${user?.id}/sessions`).get().then((data) => {setUserSessions(data.val() as Sessions)});
+    database.ref(`users/${user?.id}/sessions`).get().then((data) => {
+      if (!data.exists()) return;
+      setUserSessions(data.val() as Sessions);
+    });
   }, [user]);
 
   return (
@@ -51,9 +54,9 @@ export const Profile: React.FC = (props) => {
         </Route>
         <Route path={`${match.path}/`}>
           <ol>
-            {Object.entries(userSessions).map(([key, value]) => {
+            {userSessions && Object.entries(userSessions).map(([key, value]) => {
               return (
-                <li key={key}><Link to={`${match.url}/selectfile?clientId=${key}`}>{convertDateAndTime(value)}</Link></li>
+                <li key={key}><Link to={`${match.url}/selectfile?clientTimestamp=${value}`}>{convertDateAndTime(value)}</Link></li>
               );
             })}
           </ol>
