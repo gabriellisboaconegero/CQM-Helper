@@ -10,7 +10,7 @@ export const Ferramentas: React.FC = (props) => {
   const match = useRouteMatch();
 
   return (
-    <div>
+    <main>
       <h1>Ferramentas</h1>
       <main>
         <ul>
@@ -38,6 +38,6 @@ export const Ferramentas: React.FC = (props) => {
       <Route exact path={match.path}>
         <p>Escolha uma Ferramenta</p>
       </Route>
-    </div>
+    </main>
   );
 };

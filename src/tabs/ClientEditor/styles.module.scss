@@ -1,0 +1,33 @@
+.clientEditor{
+  background: #610f7f;
+
+  nav{
+    height: 50px;
+    background: #f628aa;
+    display: flex;
+    justify-content: space-evenly;
+
+    button{
+      min-height: 100%;
+      width: 50%;
+      background: transparent;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: none;
+
+      font-size: 20px;
+      padding: 10px;
+
+      outline: none;
+      cursor: pointer;
+
+      &.active{
+        background: #610f7f;
+        color: white;
+      }
+    }
+  }
+}

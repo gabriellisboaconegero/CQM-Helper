@@ -15,40 +15,52 @@ import { Ferramentas } from './pages/Ferramentas';
 import { Profile } from './pages/Profile';
 import SideMenu from './tabs/SideMenu';
 import { Decretos } from './pages/Decretos';
-import { Client } from './pages/Client';
 import { ClientEditor } from './tabs/ClientEditor';
 import { ClientProvider } from './contexts/ClientContex';
+
+import './styles/global.scss';
+import './styles/app.scss';
+import { Main } from './tabs/Main';
 
 const App: React.FC = (props) => {
   return (
     <AuthProvider>
       <ClientProvider>
         <Router>
-          <SideMenu />
-          <Switch>
-            <Route path="/login" >
-              <Login />
-            </Route>
-            <PrivateRoute path="/clients/:clientId">
-              <Client />
-            </PrivateRoute>
-            <PrivateRoute path="/portais">
-              <Portais />
-            </PrivateRoute>
-            <PrivateRoute path="/ferramentas">
-              <Ferramentas />
-            </PrivateRoute>
-            <PrivateRoute path="/decretos">
-              <Decretos />
-            </PrivateRoute>
-            <PrivateRoute path="/profile">
-              <Profile />
-            </PrivateRoute>
-            <Route>
-              <Redirect to="/profile" />
-            </Route>
-          </Switch>
-          <ClientEditor />
+          <div className="app">
+            <SideMenu />
+            <Switch>
+              <Route path="/login" >
+                <Main>
+                  <Login />
+                </Main>
+              </Route>
+              <PrivateRoute path="/portais">
+                <Main>
+                  <Portais />
+                </Main>
+              </PrivateRoute>
+              <PrivateRoute path="/ferramentas">
+                <Main>
+                  <Ferramentas />
+                </Main>
+              </PrivateRoute>
+              <PrivateRoute path="/decretos">
+                <Main>
+                  <Decretos />
+                </Main>
+              </PrivateRoute>
+              <PrivateRoute path="/profile">
+                <Main>
+                  <Profile />
+                </Main>
+              </PrivateRoute>
+              <Route>
+                <Redirect to="/profile" />
+              </Route>
+            </Switch>
+            <ClientEditor />
+          </div>
         </Router>
       </ClientProvider>
     </AuthProvider>

@@ -3,11 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { database } from "../../services/firebase";
-import { convertDateAndTime, convertDate, getYearsOld } from "../../utils/dateConverter";
-
-type SearchType = {
-  clientId: string;
-}
+import { convertDateAndTime } from "../../utils/dateConverter";
 
 export const FileSelector: React.FC = (props) =>{
 

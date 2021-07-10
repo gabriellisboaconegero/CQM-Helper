@@ -1,7 +1,6 @@
-import React, { FormEvent, useState } from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { createContext } from "react";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { database } from "../services/firebase";
 

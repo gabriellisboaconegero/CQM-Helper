@@ -10,7 +10,7 @@ export const Portais: React.FC = (props) => {
   const match = useRouteMatch();
 
   return (
-    <div>
+    <main>
       <h1>Portais</h1>
       <main>
         <ul>
@@ -50,6 +50,6 @@ export const Portais: React.FC = (props) => {
           </ul>
         </footer>
       </Route>
-    </div>
+    </main>
   );
 };

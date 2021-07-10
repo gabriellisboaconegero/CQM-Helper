@@ -10,6 +10,10 @@ import { FileSelector } from "./FileSelector";
 import { NewClient } from "./NewClient";
 import { UserClient } from "./UserClient";
 
+import styles from "./styles.module.scss"
+import {BsFillPersonFill, BsEnvelopeFill} from "react-icons/bs";
+
+
 type Sessions = Record<string, number>;
 
 export const Profile: React.FC = (props) => {
@@ -21,39 +25,42 @@ export const Profile: React.FC = (props) => {
 
   useEffect(() => {
     database.ref(`users/${user?.id}/sessions`).get().then((data) => {setUserSessions(data.val() as Sessions)});
-  }, []);
+  }, [user]);
 
   return (
     <main>
-      <div className="user-profile">
-        <div className="user-informations">
-          <img src="" alt="Avatar" />
-          <p><strong>Nome:</strong> Erika</p>
-          <p><strong>Email:</strong> erikanlisboa@gmail.com</p>
+      <div className={styles.userInformation}>
+        <div>
+          <BsFillPersonFill />
+          <span>{user?.name}</span>
         </div>
-        <Switch>
-          <Route path={`${match.path}/selectfile`}>
-            <FileSelector />
-          </Route>
-          <Route path={`${match.path}/client/:clientId`}>
-            <UserClient />
-          </Route>
-          <Route path={`${match.path}/newclient`}>
-            <NewClient />
-          </Route>
-          <Route path={`${match.path}/`}>
-            <ol>
-              {Object.entries(userSessions).map(([key, value]) => {
-                return (
-                  <li key={key}><Link to={`${match.url}/selectfile?clientId=${key}`}>{convertDateAndTime(value)}</Link></li>
-                );
-              })}
-            </ol>
-          </Route>
-        </Switch>
-        <Button >Arquivos</Button>
-        <Button onClick={e => history.push(`${match.url}/newclient`)}>Novo consulente</Button>
+        <div>
+          <BsEnvelopeFill />
+          <span>{user?.email}</span>
+        </div>
       </div>
+      <Switch>
+        <Route path={`${match.path}/selectfile`}>
+          <FileSelector />
+        </Route>
+        <Route path={`${match.path}/client/:clientId`}>
+          <UserClient />
+        </Route>
+        <Route path={`${match.path}/newclient`}>
+          <NewClient />
+        </Route>
+        <Route path={`${match.path}/`}>
+          <ol>
+            {Object.entries(userSessions).map(([key, value]) => {
+              return (
+                <li key={key}><Link to={`${match.url}/selectfile?clientId=${key}`}>{convertDateAndTime(value)}</Link></li>
+              );
+            })}
+          </ol>
+        </Route>
+      </Switch>
+      <Button >Arquivos</Button>
+      <Button onClick={e => history.push(`${match.url}/newclient`)}>Novo consulente</Button>
     </main>
   );
 }

@@ -9,7 +9,7 @@ export const Decretos: React.FC = (props) => {
   const {user} = useAuth();
 
   return (
-    <div>
+    <main>
       <h1>Decretos</h1>
       <ul>
         <li><Link to={`${match.url}/12345`}>Decreto de inicio</Link></li>
@@ -25,6 +25,6 @@ export const Decretos: React.FC = (props) => {
         <p>Ativação da mesa pelo(a) {user?.name}</p>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias labore perferendis perspiciatis, sit deleniti doloribus corrupti dicta, doloremque minima explicabo ad et. Esse, soluta fugit. Deserunt ipsam autem molestiae, aperiam aliquam, sed eos, illum ratione labore nisi quos veniam. Ipsa, sapiente amet. Expedita totam, modi fugit {user?.name}, iste nostrum velit adipisci cupiditate corrupti veritatis dolore recusandae repellat suscipit! Dolores consequuntur aliquid eius voluptates minus earum. Sunt earum, dignissimos praesentium dolores obcaecati molestiae repellat porro aperiam iste hic placeat atque delectus ab, in ea deserunt esse, perferendis provident dicta modi eveniet ad. Ea, quia tenetur. Repudiandae magnam temporibus nesciunt corrupti assumenda.</p>
       </Route>
-    </div>
+    </main>
   );
 }

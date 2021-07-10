@@ -1,42 +1,40 @@
 import React from "react";
 
-import { DecretosSvg } from "../../assets/DecretosSvg";
-import { FerramentasSvg } from "../../assets/FerramentasSvg";
-import { MenuSvg } from "../../assets/MenuSvg";
-import { PortaisSvg } from "../../assets/PortaisSvg";
-import { ProfileSvg } from "../../assets/ProfileSvg";
-
 import { MenuLink } from "../../components/MenuLink";
-import { useAuth } from "../../hooks/useAuth";
 import { PrivateComponent } from "../../components/PrivateComponent";
-import { AddSvg } from "../../assets/AddSvg";
-import { DownloadSvg } from "../../assets/dowloadSvg";
+
+import {
+  BsBullseye,
+  BsTools,
+  BsFileEarmarkText,
+  BsPersonFill,
+  BsPlusSquare,
+  BsCloudDownload
+  } from 'react-icons/bs';
+
+  import styles from './styles.module.scss';
 
 const SideMenu: React.FC = (props) => {
-
-  const {user} = useAuth();
-
   return (
     <PrivateComponent>
-      <menu>
-        <MenuSvg />      
-        <MenuLink to="/portais" >
-          <PortaisSvg />
+      <menu className={styles.menu}>
+        <MenuLink to="/portais" aria-label="Portais">
+          <BsBullseye />
         </MenuLink>
-        <MenuLink to="/ferramentas" >
-          <FerramentasSvg />
+        <MenuLink to="/ferramentas" aria-label="Ferramentas">
+          <BsTools />
         </MenuLink>
-        <MenuLink to="/decretos" >
-          <DecretosSvg />
+        <MenuLink to="/decretos" aria-label="Decretos">
+          <BsFileEarmarkText />
         </MenuLink>
-        <MenuLink to="/profile" >
-          <ProfileSvg />
+        <MenuLink to="/profile" aria-label="Perfil">
+          <BsPersonFill />
         </MenuLink>
-        <MenuLink to='/profile/newclient'>
-          <AddSvg />
+        <MenuLink to='/profile/newclient' aria-label="Cadastrar novo consulente">
+          <BsPlusSquare />
         </MenuLink>
-        <MenuLink to="/profile/selectfile">
-          <DownloadSvg />
+        <MenuLink to="/profile/selectfile" aria-label="Selecionar documento">
+          <BsCloudDownload />
         </MenuLink>
       </menu>
     </PrivateComponent>
